@@ -1,9 +1,22 @@
 package pl.clockworkjava.advanced;
 
-public class Student {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
+@Entity
+public class Student {
+    @Id
     private int id;
+    @Column
     private String name;
+
+    private String telephone;
+
+    private Student(){
+
+    }
 
     public Student (int id, String name){
         this.id = id;
@@ -25,5 +38,9 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone=telephone;
     }
 }
