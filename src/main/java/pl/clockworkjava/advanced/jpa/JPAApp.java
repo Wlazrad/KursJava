@@ -1,5 +1,6 @@
 package pl.clockworkjava.advanced.jpa;
 
+import pl.clockworkjava.advanced.Indeks;
 import pl.clockworkjava.advanced.Student;
 
 import javax.persistence.EntityManager;
@@ -9,10 +10,23 @@ import java.util.List;
 
 public class JPAApp {
     public static void main(String[] args) {
-        createStudent();
-        readStudent();
-        updateStudent();
-        deleteStudent();
+
+        entityManager.getTransaction().begin();
+        Student pawel = entityManager.merge(new Student("Pawel"));
+        Indeks indeks = entityManager.merge(new Indeks("123456"));
+
+        System.out.println(pawel);
+
+        pawel.setIndeks(indeks);
+
+        pawel = entityManager.merge(pawel);
+        indeks.setOwner(pawel);
+      Indeks mergeIndex  =entityManager.merge(indeks);
+        entityManager.getTransaction().commit();
+        System.out.println(pawel);
+        Indeks idx = entityManager.find(Indeks.class, mergeIndex.getId());
+        System.out.println(idx);
+
     }
 
         static EntityManagerFactory factory= Persistence
@@ -29,7 +43,7 @@ private static void deleteStudent(){
 
 private static void updateStudent(){
 
-Student kinga = new Student(1,"Kinga");
+Student kinga = new Student("Kinga");
     entityManager.getTransaction().begin();
     entityManager.persist(kinga);
 
@@ -58,7 +72,7 @@ Student kinga = new Student(1,"Kinga");
 
 
     public static void createStudent() {
-        Student pawel = new Student(0,"Paweł");
+        Student pawel = new Student("Paweł");
 
 
          entityManager.getTransaction().begin();

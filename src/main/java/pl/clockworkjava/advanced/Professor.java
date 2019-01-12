@@ -5,26 +5,22 @@ import pl.clockworkjava.advanced.jpa.Address;
 import javax.persistence.*;
 
 @Entity
-public class Student {
+public class Professor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column
+
     private String name;
 
     private String telephone;
-
     @Embedded
     private Address address;
-    @OneToOne
-    private Indeks indeks;
 
-    private Student(){
+    private Professor(){
 
     }
 
-    public Student ( String name){
-
+    public Professor (int id, String name){
+        this.id = id;
         this.name = name;
 
     }
@@ -39,18 +35,13 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Professor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-
                 '}';
     }
 
     public void setTelephone(String telephone) {
         this.telephone=telephone;
-    }
-
-    public void setIndeks (Indeks idx){
-        this.indeks = idx;
     }
 }
